@@ -1,0 +1,738 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+      "/api/v1/banks": {
+        "get": {
+          "operationId": "BankController_getBanks",
+          "summary": "Get Banks",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Banks",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/BankDto"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Banks does not exist"
+            }
+          },
+          "tags": [
+            "Bank"
+          ]
+        },
+        "post": {
+          "operationId": "BankController_createBank",
+          "summary": "Create new Bank",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBankDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created Bank",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BankDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Bank"
+          ]
+        }
+      },
+      "/api/v1/banks/{id}": {
+        "get": {
+          "operationId": "BankController_getBank",
+          "summary": "Get Bank",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Bank",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BankDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Bank does not exist"
+            }
+          },
+          "tags": [
+            "Bank"
+          ]
+        },
+        "delete": {
+          "operationId": "BankController_deleteBank",
+          "summary": "Delete Bank",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Bank deleted"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Bank"
+          ]
+        },
+        "put": {
+          "operationId": "BankController_updateBank",
+          "summary": "Update Bank",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBankDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Bank updated"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Bank"
+          ]
+        }
+      },
+      "/api/v1/banks/{bankId}/transactions": {
+        "get": {
+          "operationId": "TransactionController_getTransactions",
+          "summary": "Get Transactions",
+          "parameters": [
+            {
+              "name": "bankId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "page",
+              "required": true,
+              "in": "query",
+              "example": 1,
+              "schema": {
+                "minimum": 1,
+                "maximum": 50,
+                "type": "number"
+              }
+            },
+            {
+              "name": "perPage",
+              "required": true,
+              "in": "query",
+              "example": 1,
+              "schema": {
+                "minimum": 1,
+                "maximum": 10,
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Transactions",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TransactionDto"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Transactions does not exist"
+            }
+          },
+          "tags": [
+            "Transaction"
+          ]
+        },
+        "post": {
+          "operationId": "TransactionController_createTransaction",
+          "summary": "Create new Transaction",
+          "parameters": [
+            {
+              "name": "bankId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTransactionDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created Transaction",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TransactionDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Transaction"
+          ]
+        }
+      },
+      "/api/v1/banks/{bankId}/transactions/{id}": {
+        "get": {
+          "operationId": "TransactionController_getTransaction",
+          "summary": "Get Transaction",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "bankId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Transaction",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TransactionDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Transaction does not exist"
+            }
+          },
+          "tags": [
+            "Transaction"
+          ]
+        },
+        "delete": {
+          "operationId": "TransactionController_deleteTransaction",
+          "summary": "Delete Transaction",
+          "parameters": [
+            {
+              "name": "bankId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Transaction deleted"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Transaction"
+          ]
+        }
+      },
+      "/api/v1/categories/statistics": {
+        "get": {
+          "operationId": "CategoryController_getStatistics",
+          "summary": "Get statistics ",
+          "parameters": [
+            {
+              "name": "fromPeriod",
+              "required": false,
+              "in": "query",
+              "example": "2023-02-21 20:47:08.671",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "toPeriod",
+              "required": false,
+              "in": "query",
+              "example": "2023-02-21 20:47:08.671",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "categoryIds",
+              "required": false,
+              "in": "query",
+              "example": [
+                "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+              ],
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Statistics"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        }
+      },
+      "/api/v1/categories": {
+        "get": {
+          "operationId": "CategoryController_getCategories",
+          "summary": "Get Categories",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Categories",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CategoryDto"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Categories does not exist"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        },
+        "post": {
+          "operationId": "CategoryController_createCategory",
+          "summary": "Create new Category",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created Category",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        }
+      },
+      "/api/v1/categories/{id}": {
+        "get": {
+          "operationId": "CategoryController_getCategory",
+          "summary": "Get Category",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Category does not exist"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        },
+        "delete": {
+          "operationId": "CategoryController_deleteCategory",
+          "summary": "Delete Category",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category deleted"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        },
+        "put": {
+          "operationId": "CategoryController_updateCategory",
+          "summary": "Update Category",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCategoryDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Category updated"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          },
+          "tags": [
+            "Category"
+          ]
+        }
+      }
+    },
+    "info": {
+      "title": "Test API",
+      "description": "",
+      "version": "1.0",
+      "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+      "schemas": {
+        "BankDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+            },
+            "name": {
+              "type": "string",
+              "example": "PrivatBank"
+            },
+            "balance": {
+              "type": "number",
+              "example": "0"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "balance"
+          ]
+        },
+        "CreateBankDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 3,
+              "example": "PrivatBank"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "UpdateBankDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 3,
+              "example": "PrivatBank"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "TransactionDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+            },
+            "amount": {
+              "type": "number",
+              "example": "100"
+            },
+            "type": {
+              "type": "string",
+              "example": "profitable",
+              "enum": [
+                "profitable",
+                "consumable"
+              ]
+            },
+            "bankId": {
+              "type": "string",
+              "example": "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+            }
+          },
+          "required": [
+            "id",
+            "amount",
+            "type",
+            "bankId"
+          ]
+        },
+        "CreateTransactionCategoryDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "CreateTransactionDto": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "example": "100"
+            },
+            "type": {
+              "type": "string",
+              "example": "profitable",
+              "enum": [
+                "profitable",
+                "consumable"
+              ]
+            },
+            "bankId": {
+              "type": "string",
+              "example": "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+            },
+            "categoryId": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CreateTransactionCategoryDto"
+              }
+            }
+          },
+          "required": [
+            "amount",
+            "type",
+            "bankId",
+            "categoryId"
+          ]
+        },
+        "CategoryDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "c58f025f-21a2-41a0-b71e-684a9eeed59b"
+            },
+            "name": {
+              "type": "string",
+              "example": "food"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        },
+        "CreateCategoryDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 3,
+              "example": "food"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "UpdateCategoryDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 3,
+              "example": "food"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      }
+    }
+  }
